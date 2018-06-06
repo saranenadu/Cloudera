@@ -1,5 +1,34 @@
+hadoop fs -mkdir /user/cloudera/sqoop_import
+
+
 sqoop eval /
 --connect "jdbc:mysql://quickstart:3306/retail_db" /
 --username=retail_dba --password=cloudera /
 --query "select * from departments
+
+
+
+sqoop import-all-tables /
+-m 12  /
+--connect "jdbc:mysql://quickstart:3306/retail_db" /
+--username=retail_dba /
+--password=cloudera /
+--warehouse-dir=/user/cloudera/sqoop_import
+
+
+hadoop fs -ls /user/cloudera/sqoop_import
+
+hadoop fs -ls /user/cloudera/sqoop_import/departments
+
+hadoop fs -tail /user/cloudera/sqoop_import/departments/part-m-00005
+
+hadoop fs -cat /user/cloudera/sqoop_import/departments/part-m-*
+
+
+
+
+
+
+
+
 
